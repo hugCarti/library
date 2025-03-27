@@ -1,0 +1,20 @@
+{% extends "librarian/base.html" %}
+
+{% block title %}Modifier Membre{% endblock %}
+
+{% block content %}
+<h1>Modifier le membre</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="name" class="form-label">Nom complet</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ member.name }}" required>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="blocked" name="blocked" {% if member.blocked %}checked{% endif %}>
+        <label class="form-check-label" for="blocked">Bloquer ce membre</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <a href="{% url 'librarian:list_member' %}" class="btn btn-secondary">Annuler</a>
+</form>
+{% endblock %}

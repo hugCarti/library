@@ -1,0 +1,38 @@
+{% extends "librarian/base.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<h1>Bienvenue dans le système de gestion</h1>
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Membres</h5>
+                <p class="card-text">{{ members_count }} membres enregistrés</p>
+                <a href="{% url 'librarian:list_member' %}" class="btn btn-primary">Voir liste</a>
+                <a href="{% url 'librarian:create_member' %}" class="btn btn-success">Ajouter</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Médias</h5>
+                <p class="card-text">{{ medias_count }} médias disponibles</p>
+                <a href="{% url 'librarian:list_media' %}" class="btn btn-primary">Voir liste</a>
+                <a href="{% url 'librarian:create_media' %}" class="btn btn-success">Ajouter</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Emprunts</h5>
+                <p class="card-text">{{ active_loans_count }} emprunts en cours</p>
+                <a href="{% url 'librarian:create_loan' %}" class="btn btn-success">Nouvel emprunt</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

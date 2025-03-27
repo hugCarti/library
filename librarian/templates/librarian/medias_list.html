@@ -1,0 +1,49 @@
+{% extends "librarian/base.html" %}
+
+{% block title %}Liste des Médias{% endblock %}
+
+{% block content %}
+<h1>Liste des Médias</h1>
+<a href="{% url 'librarian:create_media' %}" class="btn btn-success mb-3">Ajouter un média</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Titre</th>
+            <th>Auteur/Créateur</th>
+            <th>Disponibilité</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for media in allmedias %}
+        <tr class="{% if not media.available %}table-secondary{% endif %}">
+            <td>{{ media.type }}</td>
+            <td>{{ media.name }}</td>
+            <td>
+                {% if media.type == "Livre" %}
+                    {{ media.author }}
+                {% elif media.type == "DVD" %}
+                    {{ media.producer }}
+                {% elif media.type == "CD" %}
+                    {{ media.artist }}
+                {% elif media.type == "Jeu de société" %}
+                    {{ media.creator }}
+                {% endif %}
+            </td>
+            <td>
+                {% if media.type != "Jeu de société" %}
+                    {% if media.available %}
+                        <span class="badge bg-success">Disponible</span>
+                    {% else %}
+                        <span class="badge bg-warning">Emprunté</span>
+                    {% endif %}
+                {% else %}
+                    <span class="badge bg-info">Consultable sur place</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

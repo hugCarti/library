@@ -1,0 +1,30 @@
+{% extends "librarian/base.html" %}
+
+{% block title %}Nouvel Emprunt{% endblock %}
+
+{% block content %}
+<h1>Créer un nouvel emprunt</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="member" class="form-label">Membre</label>
+        <select class="form-select" id="member" name="member" required>
+            <option value="">-- Sélectionnez un membre --</option>
+            {% for member in members %}
+                <option value="{{ member.id }}">{{ member.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="media" class="form-label">Média</label>
+        <select class="form-select" id="media" name="media" required>
+            <option value="">-- Sélectionnez un média --</option>
+            {% for media in medias %}
+                <option value="{{ media.id }}">{{ media.name }} ({{ media|yesno:"Disponible,Emprunté" }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Enregistrer l'emprunt</button>
+    <a href="{% url 'librarian:index' %}" class="btn btn-secondary">Annuler</a>
+</form>
+{% endblock %}

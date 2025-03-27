@@ -1,0 +1,39 @@
+{% extends "librarian/base.html" %}
+
+{% block title %}Liste des Membres{% endblock %}
+
+{% block content %}
+<h1>Liste des Membres</h1>
+<a href="{% url 'librarian:create_member' %}" class="btn btn-success mb-3">Ajouter un membre</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Statut</th>
+            <th>Emprunts en cours</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr {% if member.blocked %}class="table-danger"{% endif %}>
+            <td>{{ member.name }}</td>
+            <td>
+                {% if member.blocked %}
+                    <span class="badge bg-danger">Bloqué</span>
+                {% else %}
+                    <span class="badge bg-success">Actif</span>
+                {% endif %}
+            </td>
+            <td>
+                {{ member.active_loans_count }}/3
+            </td>
+            <td>
+                <a href="{% url 'librarian:update_member' member.id %}" class="btn btn-sm btn-warning">Modifier</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
