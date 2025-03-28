@@ -111,7 +111,6 @@ def create_loan(request):
         'medias': medias
     })
 
-
 def return_loan(request, loan_id):
     loan = get_object_or_404(Loan, id=loan_id)
     if loan.date_return is None:
@@ -128,3 +127,7 @@ def return_loan(request, loan_id):
         loan.save()
 
     return redirect('librarian:index')
+
+def list_active_loans(request):
+    active_loans = Loan.objects.filter(date_return__isnull=True).select_related('member', 'media')
+    return render(request, 'librarian/return_loan.html', {'active_loans': active_loans})

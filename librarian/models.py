@@ -64,4 +64,4 @@ class Loan(models.Model):
     def is_overdue(self):
         if self.date_return is None:
             return (timezone.now().date() - self.date_loan) > timedelta(days=7)
-        return self.date_return - self.date_loan > timedelta(days=7)
+        return (self.date_return - self.date_loan) > timedelta(days=7)

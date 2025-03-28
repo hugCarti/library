@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (index, list_member, create_member, update_member, list_media, create_media,
-                    create_loan, return_loan)
+                    create_loan, list_active_loans, return_loan)
 
 app_name = "librarian"
 urlpatterns = [
@@ -11,5 +11,6 @@ urlpatterns = [
     path('liste-medias/', list_media, name='list_media'),
     path('creer-media/', create_media, name='create_media'),
     path('creer-emprunt/', create_loan, name='create_loan'),
+    path('liste-emprunts/', list_active_loans, name='list_active_loans'),
     path('rendre-emprunt/<int:loan_id>/', return_loan, name='return_loan'),
 ]

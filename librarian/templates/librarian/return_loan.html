@@ -1,0 +1,44 @@
+{% extends "librarian/base.html" %}
+
+{% block title %}Rendre un Emprunt{% endblock %}
+
+{% block content %}
+<h1>Emprunts en cours</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Membre</th>
+            <th>Média</th>
+            <th>Date d'emprunt</th>
+            <th>Statut</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for loan in active_loans %}
+        <tr {% if loan.is_overdue %}class="table-warning"{% endif %}>
+            <td>{{ loan.member.name }}</td>
+            <td>{{ loan.media.name }}</td>
+            <td>{{ loan.date_loan }}</td>
+            <td>
+                {% if loan.is_overdue %}
+                    <span class="badge bg-danger">En retard</span>
+                {% else %}
+                    <span class="badge bg-warning">En cours</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'librarian:return_loan' loan.id %}" class="btn btn-sm btn-primary">Rendu</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center">Aucun emprunt en cours</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'librarian:index' %}" class="btn btn-secondary">Retour à l'accueil</a>
+{% endblock %}

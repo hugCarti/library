@@ -30,6 +30,7 @@
             <div class="card-body">
                 <h5 class="card-title">Emprunts</h5>
                 <p class="card-text">{{ active_loans_count }} emprunts en cours</p>
+                <a href="{% url 'librarian:list_active_loans' %}" class="btn btn-primary">Voir emprunts</a>
                 <a href="{% url 'librarian:create_loan' %}" class="btn btn-success">Nouvel emprunt</a>
             </div>
         </div>
