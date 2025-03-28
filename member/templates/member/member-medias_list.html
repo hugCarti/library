@@ -1,47 +1,62 @@
-{% extends "librarian/base.html" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .unavailable { opacity: 0.6; background-color: #ffe6e6; }
+        .status { font-style: italic; color: #666; }
+        .navbar { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}
+        <h1>Liste des Médias et Jeux</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Titre</th>
+                    <th>Auteur/Créateur</th>
+                    <th>Disponibilité</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for media in medias %}
+                <tr class="{% if not media.available %}table-secondary{% endif %}">
+                    <td>{{ media.type }}</td>
+                    <td>{{ media.name }}</td>
+                    <td>
+                        {% if media.type == "Livre" %}
+                            {{ media.author }}
+                        {% elif media.type == "DVD" %}
+                            {{ media.producer }}
+                        {% elif media.type == "CD" %}
+                            {{ media.artist }}
+                        {% elif media.type == "Jeu de société" %}
+                            {{ media.creator }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if media.type != "Jeu de société" %}
+                            {% if media.available %}
+                                <span class="badge bg-success">Disponible</span>
+                            {% else %}
+                                <span class="badge bg-warning">Emprunté</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="badge bg-info">Consultable sur place</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endblock %}
+    </div>
 
-{% block title %}Liste des Médias et Jeux{% endblock %}
-
-{% block content %}
-<h1>Liste des Médias et Jeux</h1>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Type</th>
-            <th>Titre</th>
-            <th>Auteur/Créateur</th>
-            <th>Disponibilité</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for media in medias %}
-        <tr class="{% if not media.available %}table-secondary{% endif %}">
-            <td>{{ media.type }}</td>
-            <td>{{ media.name }}</td>
-            <td>
-                {% if media.type == "Livre" %}
-                    {{ media.author }}
-                {% elif media.type == "DVD" %}
-                    {{ media.producer }}
-                {% elif media.type == "CD" %}
-                    {{ media.artist }}
-                {% elif media.type == "Jeu de société" %}
-                    {{ media.creator }}
-                {% endif %}
-            </td>
-            <td>
-                {% if media.type != "Jeu de société" %}
-                    {% if media.available %}
-                        <span class="badge bg-success">Disponible</span>
-                    {% else %}
-                        <span class="badge bg-warning">Emprunté</span>
-                    {% endif %}
-                {% else %}
-                    <span class="badge bg-info">Consultable sur place</span>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>

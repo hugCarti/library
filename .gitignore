@@ -1,0 +1,18 @@
+
+# Dependencies
+venv/
+env/
+*.pyc
+__pycache__/
+*.sqlite3
+
+# Django
+/django/
+
+# IDE/Editors
+.idea/
+.pycharm/
+
+# Environnement
+.env
+*.env
