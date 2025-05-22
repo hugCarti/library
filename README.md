@@ -21,3 +21,8 @@ Un système de gestion de bibliothèque développé avec Django.
 ```bash
 git clone https://github.com/hugCarti/library.git
 cd library
+```
+## Superutilisateur
+
+utilisateur : adminn
+mdp : test
