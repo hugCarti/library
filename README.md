@@ -22,6 +22,11 @@ Un système de gestion de bibliothèque développé avec Django.
 git clone https://github.com/hugCarti/library.git
 cd library
 ```
+## Adresse Local
+
+- http://127.0.0.1:8000
+- http://127.0.0.1:8000/librarian/ (pour bibliothécaires)
+
 ## Superutilisateur
 
 - utilisateur : adminn
